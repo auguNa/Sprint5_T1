@@ -26,7 +26,7 @@ public class BlackJackController {
     }
 
     @GetMapping("/{id}")
-    public Mono<ResponseEntity<BlackJack>> getGameDetails(@PathVariable Long id) {  // Use Long instead of String
+    public Mono<ResponseEntity<BlackJack>> getGameDetails(@PathVariable Long id) {
         return blackJackService.getGameDetails(id)
                 .map(ResponseEntity::ok)
                 .defaultIfEmpty(ResponseEntity.notFound().build());

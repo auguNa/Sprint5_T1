@@ -1,12 +1,7 @@
 package cat.itacademy.s05.t01.S05T01.model;
 
 import cat.itacademy.s05.t01.S05T01.Game.Card;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Table;
 import lombok.Data;
-import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.swing.*;
@@ -14,35 +9,35 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 
 @Data
 @Document(collection = "games")
 public class BlackJack {
-    ArrayList<Card> deck;
-    Random random = new Random(); //shuffle deck
-    //dealer
-    Card hiddenCard;
-    ArrayList<Card> dealerHand;
-    // other fields as necessary
-    int dealerSum;
-    int dealerAceCount;
-    //player
-    ArrayList<Card> playerHand;
-    int playerSum;
-    int playerAceCount;
     //window
     int boardWidth = 600;
     int boardHeight = boardWidth;
     int cardWidth = 110; //ratio should 1/1.4
     int cardHeight = 154;
-    JFrame frame = new JFrame("Black Jack");
-    JPanel buttonPanel = new JPanel();
-    JButton hitButton = new JButton("Hit");
-    JButton stayButton = new JButton("Stay");
-    JPanel gamePanel = new JPanel() {
+    private ArrayList<Card> deck;
+    private Random random = new Random(); //shuffle deck
+    //dealer
+    private Card hiddenCard;
+    private ArrayList<Card> dealerHand;
+    // other fields as necessary
+    private int dealerSum;
+    private int dealerAceCount;
+    //player
+    private ArrayList<Card> playerHand;
+    private int playerSum;
+    private int playerAceCount;
+    private JFrame frame = new JFrame("Black Jack");
+    private JPanel buttonPanel = new JPanel();
+    private JButton hitButton = new JButton("Hit");
+    private JButton stayButton = new JButton("Stay");
+    private JPanel gamePanel = new JPanel() {
+
         @Override
         public void paintComponent(Graphics g) {
             super.paintComponent(g);
@@ -101,11 +96,6 @@ public class BlackJack {
             }
         }
     };
-    @Id
-    private Long id;
-    private String playerName;
-    private List<Card> playerCards;
-    private List<Card> dealerCards;
 
     public BlackJack() {
         startGame();
@@ -244,17 +234,5 @@ public class BlackJack {
             dealerAceCount -= 1;
         }
         return dealerSum;
-    }
-
-    @Data
-    @Entity
-    @Table(name = "players")
-    public class Player {
-        @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        private Long id;
-        private String name;
-        private int score;
-        // other fields as necessary
     }
 }

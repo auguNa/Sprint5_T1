@@ -8,7 +8,7 @@ public class Card {
         this.value = value;
         this.type = type;
     }
-
+    @Override
     public String toString() {
         return value + "-" + type;
     }

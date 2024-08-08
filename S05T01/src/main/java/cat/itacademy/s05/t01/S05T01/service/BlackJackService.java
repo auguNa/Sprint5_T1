@@ -1,5 +1,6 @@
 package cat.itacademy.s05.t01.S05T01.service;
 
+import cat.itacademy.s05.t01.S05T01.exception.EntityNotFoundException;
 import cat.itacademy.s05.t01.S05T01.model.BlackJack;
 import cat.itacademy.s05.t01.S05T01.repository.BlackJackRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,13 +20,11 @@ public class BlackJackService {
     public Mono<BlackJack> createGame(String playerName) {
         BlackJack game = new BlackJack();
         game.setPlayerName(playerName);
-        // Initialize game with necessary details
-        return Mono.just(game)
-                .flatMap(blackJackRepository::save);
+        return blackJackRepository.save(game);
     }
 
     public Mono<BlackJack> getGameDetails(Long id) {
         return blackJackRepository.findById(id)
-                .switchIfEmpty(Mono.error(new RuntimeException("Game not found")));
+                .switchIfEmpty(Mono.error(new EntityNotFoundException("Game not found")));
     }
 }
